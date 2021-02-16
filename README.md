@@ -20,13 +20,13 @@ This project is targeting people who are dealing with large data sets and have a
 
 The solution would be presented as a Proof of Concept where the team plans to create a technology backlog to learn the technologies required for the project. Such as learning how to create containers and using services such as MinIO.
   *   Presents a simple compelling interface for end-users.
-          - Addition and management of users of the system.
-          - Ability to create containers of data
-          - Option to initiate, stop and restart container transfer
-          - Option to evaluate network parameters
+    * Addition and management of users of the system.
+    * Ability to create containers of data.
+    * Option to initiate, stop and restart container transfer.
+    * Option to evaluate network parameters.
   *  Integration of perfSonar for network performance
   * Evaluation of Docker and OpenShift for creating data containers.
-          - Create container using the evaluated platform
+    * Create container using the evaluated platform
           
 The team will be evaluating if it is possible to include performance tuning on OS and network level in the scope of the project based upon experimentation results and the fact that it is dependent upon server availability and server configuration.
 
@@ -35,7 +35,7 @@ The team will be evaluating if it is possible to include performance tuning on O
 This project aims to use a Science DMZ to package data into a collection of containers that can be deployed by end users to get improved performance out of their storage and networking and; as a starting point for system administrators to achieve performance only currently attainable by the most skilled.
 The Science DMZ is a portion of the network, built at or near the campus or laboratory's local network perimeter that is designed such that the equipment, configuration, and security policies are optimized for high-performance scientific applications rather than for general-purpose business systems or “enterprise” computing.
 
-![github-small](https://github.com/CS6620-S21/Data-Transfer-Node-in-a-Box/blob/main/images/DataTransferNodeInABox.png)
+![Solution Concept](images/DataTransferNodeInABox.png)
 
 The solution will consist of a Data Transfer Portal which will allow users to login and start containerization of data. The containers would then be transferred over high speed networks from source to destination where it will be downloaded to the local file system. Before the transfer is initiated, the solution proposes to perform Data Path Characterization by evaluating network parameters.
 
