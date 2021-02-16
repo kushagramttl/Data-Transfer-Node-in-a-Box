@@ -35,7 +35,7 @@ The team will be evaluating if it is possible to include performance tuning on O
 This project aims to use a Science DMZ to package data into a collection of containers that can be deployed by end users to get improved performance out of their storage and networking and; as a starting point for system administrators to achieve performance only currently attainable by the most skilled.
 The Science DMZ is a portion of the network, built at or near the campus or laboratory's local network perimeter that is designed such that the equipment, configuration, and security policies are optimized for high-performance scientific applications rather than for general-purpose business systems or “enterprise” computing.
 
-// image here
+![github-small](https://github.com/CS6620-S21/Data-Transfer-Node-in-a-Box/blob/main/images/DataTransferNodeInABox.png)
 
 The solution will consist of a Data Transfer Portal which will allow users to login and start containerization of data. The containers would then be transferred over high speed networks from source to destination where it will be downloaded to the local file system. Before the transfer is initiated, the solution proposes to perform Data Path Characterization by evaluating network parameters.
 
