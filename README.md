@@ -14,7 +14,6 @@ The project aims to make large data transfers less painful for the end users of 
 This project is targeting people who are dealing with large data sets and have a need for sharing and moving large datasets globally.
    * Normal Users: This project targets end-users of MOC (Mass Open Cloud) who are unable to build Science DMZs themselves but are in need of giant data           transferation. Users can register and then login to get access to the packed containers which they can download and use as tools to realize timely data moving. 
    * System administrator: For system administrators of MOC to achieve performance only currently attainable by the most skilled.
-   * Network administrator: The application would be dealing with network configuration and tuning. A network administrator would be required to ensure that the parameters for network performance are maintained and set appropriately.
 
 # 3. Scope and Features Of The Project:
 
