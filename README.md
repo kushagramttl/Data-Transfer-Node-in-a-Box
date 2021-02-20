@@ -18,12 +18,12 @@ This project is targeting people who are dealing with large data sets and have a
 # 3. Scope and Features Of The Project:
 
 The solution would be presented as a Proof of Concept where the team plans to create a technology backlog to learn the technologies required for the project. Such as learning how to create containers and using services such as MinIO.
-  *   Presents a simple compelling interface for end-users.
+  * Presents a simple compelling interface for end-users.
     * Addition and management of users of the system.
     * Ability to create containers of data.
     * Option to initiate, stop and restart container transfer.
     * Option to evaluate network parameters.
-  *  Integration of perfSonar for network performance
+  * Integration of perfSonar for network performance
   * Evaluation of Docker and OpenShift for creating data containers.
     * Create container using the evaluated platform
           
@@ -40,5 +40,19 @@ The solution will consist of a Data Transfer Portal which will allow users to lo
 
 The solution would be using services such as MinIO which allows a consistent, performant and scalable object store. It can handle unstructured, large data such as photos, videos, log files, container images, backups etc. The solution also uses gridFTP protocol for transfer of containers over the network.
 
+# 5. Acceptance Criteria
+The project acceptance will be based on the following criteria:
+* Creation of an image container where data can be stored
+* Transfer of container from a source to destination
+* A portal where the user can login to perform the above operations
 
+Initially, the portal only needs to cover basic necessity that supports the mentioned operations
+
+# 6. Release Planning
+Due for Week1:
+* Django setup
+* Learning about protocol for transfer of files
+* Learning about image and container creation
+
+The further releases of application are not fixed yet for a particular date and are dependent on evaluation results from experiments being conducted for the project.
 
