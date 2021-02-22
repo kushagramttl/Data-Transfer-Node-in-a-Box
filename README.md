@@ -14,9 +14,8 @@ The project aims to make large data transfers less painful for the end users of 
 This project targets researchers and scientists from our trusted organization who are dealing with giant data sets and have a great need for sharing and moving large datasets globally. 
 Users will have access to a portal where they can initiate large data transfers. First, they need to register and log in to this website, then they will be able to download packed containers to which they can upload files from their operating system. The portal will give users options to choose their local files. Then they can send those files to another container which is hosted on the virtual machine on MOC. They will also be able to restart the whole transfer process through command on the portal. 
 Stretch goal: 
- * They are able to perform tests between 2 containers and see the report on the portal. 
+ * They are able to conduct performance tests between 2 containers and see the report on the portal.
  * They can see the progress of the data transfer through a window or at least the time has been spent so far. 
- * They can transfer and share data across high-speed WANs.
 
 
 # 3. Scope and Features Of The Project:
