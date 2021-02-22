@@ -12,7 +12,9 @@ The project aims to make large data transfers less painful for the end users of 
 # 2. Users/Personas Of The Project:
 
 This project targets researchers and scientists who are dealing with giant data sets and have a great need for sharing and moving large datasets globally. 
+
 User role1 : sender. Users will have access to a portal where they can initiate large data transfers. Once they successfully register and log in to this website,  they will be able to download containers to which they can upload files from their operation system. The portal will give users options to choose their local files and they can specify the destination. They will also be able to restart, stop and cancel the whole transfer process through command on the portal in case they run into some issues. Hopefully they will also be able to see the data transfer progress through a window or at least the time has been spent so far. They will also have options to conduct performance tests between 2 containers and check the report on the portal.
+
 User role2 : receiver. On the receiver side, once they receive containers sent by other users who are from their trusted organizations, they can choose to download the container to their local host and get access to the data packed in it.
 
 
