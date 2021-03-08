@@ -12,10 +12,19 @@ The project aims to make large data transfers less painful for the end users of 
 # 2. Users/Personas Of The Project:
 
 This project targets researchers and scientists who are dealing with giant data sets and have a great need for sharing and moving large datasets globally. 
+There are mainly two users who will be using the application:
+1. Sender
+2. Receiver
+* Sender: Users will have access to a portal where they can initiate large data transfers. Once they successfully register and log in to this website,  they will be able to download containers to which they can upload files from their operating system. The portal will give users a list of destination addresses for them to choose from. They will also be able to restart, stop and cancel the whole transfer process through command on the portal in case they run into some issues. Hopefully they will also be able to see the data transfer status through a window or at least the time has been spent so far. They will also have options to conduct performance tests between 2 containers and check the report on the portal.
+Register/login on the portal 
+Download containers on his/her local system
+Add the image (which will have data) on the container 
+User enters details for transfer and initiate transfer
+* Receiver: On the receiver side, once they receive containers sent by other users who are from their trusted organizations, they can choose to download the container to their local host and get access to the data packed in it.
+Register/login on the portal 
+Download containers on his/her local system
+Receivers get the message that download has started. 
 
-User role1 : sender. Users will have access to a portal where they can initiate large data transfers. Once they successfully register and log in to this website,  they will be able to download containers to which they can upload files from their operation system. The portal will give users options to choose their local files and they can specify the destination. They will also be able to restart, stop and cancel the whole transfer process through command on the portal in case they run into some issues. Hopefully they will also be able to see the data transfer progress through a window or at least the time has been spent so far. They will also have options to conduct performance tests between 2 containers and check the report on the portal.
-
-User role2 : receiver. On the receiver side, once they receive containers sent by other users who are from their trusted organizations, they can choose to download the container to their local host and get access to the data packed in it.
 
 
 # 3. Scope and Features Of The Project:
@@ -39,9 +48,19 @@ The Science DMZ is a portion of the network, built at or near the campus or labo
 
 ![Solution Concept](images/DataTransferNodeInABox.png)
 
-The solution will consist of a Data Transfer Portal which will allow users to login and start containerization of data. The containers would then be transferred over high speed networks from source to destination where it will be downloaded to the local file system. Before the transfer is initiated, the solution proposes to perform Data Path Characterization by evaluating network parameters.
+The solution will consist of a Data Transfer Portal which will allow users to login and start containerization of data. The containers would then be transferred over high speed networks from source to destination where it will be downloaded to the local file system. 
+Before the transfer is initiated, the solution proposes to perform Data Path Characterization by evaluating network parameters.
 
-The solution would be using services such as MinIO which allows a consistent, performant and scalable object store. It can handle unstructured, large data such as photos, videos, log files, container images, backups etc. The solution also uses gridFTP protocol for transfer of containers over the network.
+The solution proposes to follow the mentioned steps for transfer of data:
+
+* User can download the container using docker
+* Add image to the container which will contain the data to be transfered
+* Container transfers data from source to destination using transfer protocol like HTTP and S3
+* Receiver would receive the data in local file system(like laptop or virtual machine)
+* Sender can stop the transfer of data if required
+
+The solution would be using services such as MinIO which allows a consistent, performant and scalable object store. It can handle unstructured, large data such as photos, videos, log files, container images, backups etc. The solution also uses S3 and HTTP protocols for swift transfer of containers over the network reliably.
+
 
 # 5. Acceptance Criteria
 The project acceptance will be based on the following criteria:
@@ -56,6 +75,15 @@ Due for Week1:
 * Django setup
 * Learning about protocol for transfer of files
 * Learning about image and container creation
+
+For March 12, 2021:
+* Create container that can store data
+* Learn about communication between 2 containers
+* Django setup for user access to portal
+* Learn about network transfer using HTTP and S3
+
+The further releases of applications are not fixed yet for a particular date and are dependent on evaluation results from experiments being conducted for the project.
+
 
 The further releases of application are not fixed yet for a particular date and are dependent on evaluation results from experiments being conducted for the project.
 
