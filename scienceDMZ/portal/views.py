@@ -23,8 +23,8 @@ def signin(request):
 def register(request):
     if request.user.is_authenticated:
         container_id = str(uuid.uuid4())
-        username = QueryDict(request.get_full_path().split("?")[1])["user"]
-        user = User.objects.get(username=username)
+        # username = QueryDict(request.get_full_path().split("?")[1])["user"]
+        user = User.objects.get(id=request.user.id)
         Container.objects.create(container_id=container_id, user=user)
         return JsonResponse({'c_id': container_id})
     else:
