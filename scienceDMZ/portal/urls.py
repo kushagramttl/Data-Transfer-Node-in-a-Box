@@ -6,5 +6,6 @@ urlpatterns = [
     path('signin/', views.signin, name='signin'),
     path('signout/', views.signout, name='signout'),
     path('register/', views.register, name='index'),
+    path('receive/', views.receive, name='index'),
     path('', admin.site.urls),
 ]

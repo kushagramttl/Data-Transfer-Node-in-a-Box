@@ -14,3 +14,20 @@ class Container(models.Model):
 
   def __str__(self):
     return self.container_id
+
+
+class Command(models.Model):
+  command_id = models.CharField(max_length=1000, unique=True)
+  sender = models.ForeignKey(
+    Container,
+    on_delete=models.CASCADE,
+    related_name="sender"
+  )
+  # receiver = models.ForeignKey(
+  #   Container,
+  #   on_delete=models.CASCADE,
+  #   related_name="receiver"
+  # )
+
+  def __str__(self):
+    return self.command_id
