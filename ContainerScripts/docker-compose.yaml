@@ -6,7 +6,7 @@ services:
       context: ./minio
       dockerfile: Dockerfile
     volumes:
-      - data-1:/data
+      - ./receive:/data
     ports:
       - "9000:9000"
     environment:
@@ -19,6 +19,8 @@ services:
     build:
       context: ./scripts
       dockerfile: Dockerfile
+    volumes:
+      - ./send:/data
     depends_on:
       - minio
     networks:
