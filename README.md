@@ -15,17 +15,22 @@ This project targets researchers and scientists who are dealing with giant data 
 There are mainly two users who will be using the application:
 1. Sender
 2. Receiver
-* Sender: Users will have access to a portal where they can initiate large data transfers. Once they successfully register and log in to this website,  they will be able to download containers to which they can upload files from their operating system. The portal will give users a list of destination addresses for them to choose from. They will also be able to restart, stop and cancel the whole transfer process through command on the portal in case they run into some issues. Hopefully they will also be able to see the data transfer status through a window or at least the time has been spent so far. They will also have options to conduct performance tests between 2 containers and check the report on the portal.
-Register/login on the portal 
-Download containers on his/her local system
-Add the image (which will have data) on the container 
-User enters details for transfer and initiate transfer
-* Receiver: On the receiver side, once they receive containers sent by other users who are from their trusted organizations, they can choose to download the container to their local host and get access to the data packed in it.
-Register/login on the portal 
-Download containers on his/her local system
-Receivers get the message that download has started. 
+* Sender: 
+ * Users will have access to a portal where they can initiate large data transfers. Once they successfully register and log in to this website,  they will be able to download Dockerfile and docker-compose.yaml file from the docker hub.
+ * When the user runs these files, it will build two containers - minion and controller container.
+ * The controller container will poll commands from the portal. These commands are given by the sender on the portal.
+ * The sender can initiate the transfer using the minio client command through the portal. The controller container will start the transfer. The commands for transfer :
+   1. First, sender will create an alias for receiver’s container using the mc command: mc config host add --api s3v4 bobmachine http://bobmachine.bobco.com :9000 accesskey  secret
+   2. Then the sender will transfer using the following command: mc config host add --api s3v4 bobmachine http://bobmachine.bobco.com :9000 accesskey  secret
+ * (Note : the receiver needs to send it’s minio accesskey and secret key to the sender via email/message).
+   * The controller container will also send the status updates to the portal continuously. 
 
-
+* Receiver: 
+  * On the receiver side, the receiver too has to login on the portal and download the files from the docker-hub. (same step that sender did).
+  * The receiver will put the minio access key and secret key on the portal.
+  * The minio container for the receiver will receive the files (sender has already initiated using his keys).
+  * The minio container will save these files to the local file system of the receiver.
+ 
 
 # 3. Scope and Features Of The Project:
 
@@ -48,7 +53,7 @@ The Science DMZ is a portion of the network, built at or near the campus or labo
 
 ![Solution Concept](images/DataTransferNodeInABox.png)
 
-The solution will consist of a Data Transfer Portal which will allow users to login and start containerization of data. The containers would then be transferred over high speed networks from source to destination where it will be downloaded to the local file system. 
+The solution will consist of a Data Transfer Portal which will allow users to login and start containerization of data. The data inside containers would then be transferred over high speed networks from source to destination where the minio container of the receiver saves the data in the local file system.
 Before the transfer is initiated, the solution proposes to perform Data Path Characterization by evaluating network parameters.
 
 The solution proposes to follow the mentioned steps for transfer of data:
