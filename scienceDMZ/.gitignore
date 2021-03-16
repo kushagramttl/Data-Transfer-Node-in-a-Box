@@ -1,0 +1,4 @@
+portal/__pycache__/
+portal/migrations/__pycache__/*
+scienceDMZ/__pycache__/*
+db.sqlite3
