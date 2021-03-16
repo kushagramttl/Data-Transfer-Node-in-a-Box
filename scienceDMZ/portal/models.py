@@ -6,6 +6,11 @@ from django.contrib.auth.models import User
 
 class Container(models.Model):
   container_id = models.CharField(max_length=1000, unique=True)
+  access_key = models.CharField(max_length=1000, unique=True, null=True)
+  secret_key = models.CharField(max_length=1000, unique=True, null=True)
+  ip_address = models.CharField(max_length=1000, null=True)
+  port = models.CharField(max_length=1000, null=True)
+
   user = models.ForeignKey(
     settings.AUTH_USER_MODEL,
     on_delete = models.CASCADE,
@@ -18,16 +23,16 @@ class Container(models.Model):
 
 class Command(models.Model):
   command_id = models.CharField(max_length=1000, unique=True)
+  access_key = models.CharField(max_length=1000, unique=True, null=True)
+  secret_key = models.CharField(max_length=1000, unique=True, null=True)
+  ip_address = models.CharField(max_length=1000, null=True)
+  port = models.CharField(max_length=1000, null=True)
+
   sender = models.ForeignKey(
-    Container,
+    settings.AUTH_USER_MODEL,
     on_delete=models.CASCADE,
     related_name="sender"
   )
-  # receiver = models.ForeignKey(
-  #   Container,
-  #   on_delete=models.CASCADE,
-  #   related_name="receiver"
-  # )
 
   def __str__(self):
     return self.command_id
