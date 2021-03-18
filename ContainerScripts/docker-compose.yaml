@@ -2,11 +2,9 @@ version: '3.7'
 services:
   minio:
     container_name: minio
-    build:
-      context: ./minio
-      dockerfile: Dockerfile
+    image: minio/minio  
     volumes:
-      - data-1:/data
+      - ./receive:/data
     ports:
       - "9000:9000"
     environment:
@@ -16,15 +14,14 @@ services:
       - backend
     command: server /data
   python-service:
-    build:
-      context: ./scripts
-      dockerfile: Dockerfile
+    container_name: controller
+    image: kushagramttl/samplecontroller
+    volumes: 
+      - ./send:/usr/src/code/data
     depends_on:
       - minio
     networks:
       - backend
-volumes: 
-  data-1:
 networks:
   backend:
     driver: bridge
