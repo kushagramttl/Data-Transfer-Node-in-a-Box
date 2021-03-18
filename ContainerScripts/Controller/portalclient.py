@@ -6,5 +6,4 @@ def get_commands(url):
     print(respose)
     json_data = respose.json()
     print(json_data)
-    
     return json_data

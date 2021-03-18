@@ -3,6 +3,7 @@ from portalclient import get_commands
 from config import ConfigSingleton
 from transfercommand import initiate_transfer
 from multiprocessing import Process
+from testminio import main
 
 def initiate():
     ConfigSingleton.getInstance().set_config_values()
@@ -20,6 +21,7 @@ def initiate():
 
         break
 
+    main()
 
 if __name__ == '__main__':
     initiate()
