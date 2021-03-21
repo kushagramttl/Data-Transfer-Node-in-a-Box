@@ -1,6 +1,13 @@
 <div style="margin-left: 18%; margin-top: 100px">
-  <h2>My Transfers:</h2>
+  <h2>My Containers:</h2>
+  {% for container in data.all %}
+  <span>Container ID: {{container.id}}</span>
   <ul>
-    <li>Transfer ID: 123456, Status: __</li>
+    <li>Access Key: {{ container.access_key }}</li>
+    <li>Secret Key: {{ container.secret_key }}</li>
+    <li>IP Address: {{ container.ip_address }}</li>
+    <li>Port Number: {{ container.port }}</li>
   </ul>
+
+  {% endfor %}
 </div>

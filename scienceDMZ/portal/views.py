@@ -18,9 +18,18 @@ def signin(request):
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return render(request, 'portal/index.html', {})
+        data = Container.objects.filter(user=user)
+        return render(request, 'portal/index.html', {'data': data})
     else:
         return HttpResponse("Login Error! Try again!")
+
+
+def containers(request):
+    if request.user.is_authenticated:
+        data = Container.objects.filter(user=request.user)
+        return render(request, 'portal/index.html', {'data': data})
+    else:
+        return HttpResponse("Please login")
 
 
 def register(request):
@@ -59,7 +68,10 @@ def commands(request):
                                    secret_key=secret_key, port=port, ip_address=ip_address)
             return JsonResponse({'command_created': "true"})
         elif request.method == "GET":
-            return HttpResponse([], content_type="application/json")
+            qs = Command.objects.all()
+            data = serialize("json", qs, fields=(
+                "access_key", "secret_key", "ip_address", "port"))
+            return HttpResponse(data, content_type="application/json")
     else:
         return HttpResponse("Please login")
 
