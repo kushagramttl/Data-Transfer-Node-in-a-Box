@@ -9,6 +9,7 @@ def pull_json() :
       print(data) 
   return data
 
+#dummy json object
 a ={"endpoint":"192.168.0.33:9000", 
    "name": "BobMachine", 
     "access":"testKey2",
