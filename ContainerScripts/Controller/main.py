@@ -12,26 +12,34 @@ def initiate():
 
     # to login into the container
     login_url = ConfigSingleton.getInstance().config_dict["LOGIN_URL"]
-    session = login(login_url, "alice", "Dockerbaba")
+
+    username = input("Please enter your username: ")
+    pwd = input("Please enter your password: ")
+
+    session = login(login_url, username, pwd)
 
     # for registration of conatiner with portal
     container_registration = ConfigSingleton.getInstance().config_dict["CONTAINER_REGISTER_URL"]
-    post_register_container(container_registration, session)
+
+    access_key = input("Please enter your access key: ")
+    secret_key = input("Please enter your secret key: ")
+    post_register_container(container_registration, session, access_key, secret_key)
 
     while(True):
         commands = get_commands(ConfigSingleton.getInstance().config_dict["FETCH_COMMAND_URL"], session)
-        print("In main : " , commands)
+        if len(commands) > 0:
+            print("In main : ", commands)
         # for(command in commands):
 
         # if command["command"] == "START":
             # p = Process(target=initiate_transfer)
             # p.start()
             # p.join()
-        number_of_processes = len(commands)
+            number_of_processes = len(commands)
 
-        with Pool(number_of_processes) as p:
-            results = p.map(initiate_transfer, commands)
-            print(results)
+            with Pool(number_of_processes) as p:
+                results = p.map(initiate_transfer, commands)
+                print(results)
 
         time.sleep(wait_time)
 
