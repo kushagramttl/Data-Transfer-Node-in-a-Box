@@ -87,8 +87,10 @@ For March 12, 2021:
 * Django setup for user access to portal
 * Learn about network transfer using HTTP and S3
 
+For March 26, 2021:
+* Enhance existing Portal Features and add new Endpoints and User Interfaces
+* Create API Documentation
+* Container integration for user authentication and command polling
+* Explore setting up VMs on MOC
+
 The further releases of applications are not fixed yet for a particular date and are dependent on evaluation results from experiments being conducted for the project.
-
-
-The further releases of application are not fixed yet for a particular date and are dependent on evaluation results from experiments being conducted for the project.
-
