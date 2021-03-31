@@ -36,3 +36,17 @@ class Command(models.Model):
 
   def __str__(self):
     return self.command_id
+
+
+class Transfer(models.Model):
+  transfer_id = models.CharField(max_length=1000, unique=True)
+  status = models.CharField(max_length=1000, default="Started")
+
+  sender = models.ForeignKey(
+      settings.AUTH_USER_MODEL,
+      on_delete=models.CASCADE,
+      related_name="transfer_sender"
+  )
+
+  def __str__(self):
+    return self.status
