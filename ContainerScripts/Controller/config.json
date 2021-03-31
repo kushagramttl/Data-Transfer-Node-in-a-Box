@@ -1,4 +1,6 @@
 {
-  "PORTAL_URL": "http://api.mocki.io/v1/82b18179",
+  "FETCH_COMMAND_URL": "http://localhost:8000/portal/commands/",
+  "CONTAINER_REGISTER_URL": "http://localhost:8000/portal/register/",
+  "LOGIN_URL": "http://localhost:8000/portal/signin",
   "WAIT_TIME": 10
 }

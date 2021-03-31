@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   minio:
-    container_name: minio
+    container_name: dtnib_minio
     image: minio/minio  
     volumes:
       - ./receive:/data

@@ -1,0 +1,5 @@
+{
+  "INIT_TRANSFER_URL": "http://localhost:8000/portal/transfers/ ",
+  "GET_TRANSFER_STATUS_URL": "http://localhost:8000/portal/transfers/ ",
+  "GET_TRANSFER_LIST_URL": "http://localhost:8000/portal/transfers/"
+}
