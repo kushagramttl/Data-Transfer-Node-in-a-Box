@@ -66,13 +66,18 @@ The solution proposes to follow the mentioned steps for transfer of data:
 
 The solution would be using services such as MinIO which allows a consistent, performant and scalable object store. It can handle unstructured, large data such as photos, videos, log files, container images, backups etc. The solution also uses S3 and HTTP protocols for swift transfer of containers over the network reliably.
 
-# Understanding Container Setup:
-![ContainerDiagram](images/ContainerDiagram.jpg)
+### Understanding Container Setup:
+<p align="center">
+  <img src="images/ContainerDiagram.jpg">
+</p>
+
 
 The above diagram shows two systems - sender’s laptop and receiver’s virtual machine. Each of them has a local file system on which the two containers run. We have two containers - MinIO container and Controller container. The transfer is initiated by the controller container on the sender’s end and the receiver’s MinIO container receives the data.
 
-# Understanding Container-Portal Interaction:
-![PortalDiagram](images/PortalDiagram.jpg)
+### Understanding Container-Portal Interaction:
+<p align="center">
+  <img src="images/PortalDiagram.jpg">
+</p>
 
 The portal is deployed on the server. The containers on the user’s machine interact with the portal. On the sender’s end, the controller container constantly polls for commands on the portal (User enters commands on the portal). The controller container starts a new process for all the commands that it gets from the portal.
 On the receiver’s end, the container registers itself on the portal so that it can receive the data which is sent by the sender. The sender has the identification keys (security keys and access keys) of the receiver and it uses these keys when he initiates the transfer.
