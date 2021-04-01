@@ -1,6 +1,5 @@
 import json
 
-
 class ConfigSingleton:
     __instance = None
     config_dict = dict()
