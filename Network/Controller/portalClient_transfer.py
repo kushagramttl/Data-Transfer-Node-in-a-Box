@@ -1,5 +1,7 @@
 import requests
 
+class PortalClient_transfer:
+
 def get_transfer_list(url) :
     session = requests.Session()
     respose = session.get(url)
@@ -26,3 +28,6 @@ def update_status(url, transferId) :
     session = requests.Session()
     header = {"Content-type": "application/json"}
     response = session.put(url + "/" + transferId, data = transfer_object, headers=header)
+
+def __init__(self):
+    print("Client initiated!")

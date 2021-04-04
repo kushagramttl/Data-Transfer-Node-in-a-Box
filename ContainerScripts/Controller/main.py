@@ -29,7 +29,7 @@ def initiate():
         secret_key = input("Please enter your secret key: ")
         # access_key = "test3"
         # secret_key = "test3"
-        portal_client.post_register_container(container_registration, session, access_key, secret_key)
+        portal_client._register_container(container_registration, session, access_key, secret_key)
 
         while(True):
             commands = portal_client.get_commands(ConfigSingleton.getInstance().config_dict["FETCH_COMMAND_URL"], session)
