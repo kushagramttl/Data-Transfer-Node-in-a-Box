@@ -1,8 +1,7 @@
 import requests
 
 class PortalClient_transfer:
-    def get_transfer_list(url) :
-        session = requests.Session()
+    def get_transfer_list(url, session) :
         respose = session.get(url)
         print("Get transfers response : ", respose)
         if respose != None:
@@ -11,20 +10,18 @@ class PortalClient_transfer:
             return transfers
         return {}
 
-    def post_transfer(url, transferId) :
+    def post_transfer(url, transferId, session) :
         transfer_object = {
             "status" : "Start",
         }
-        session = requests.Session()
         header = {"Content-type": "application/json"}
         response = session.post(url + "/" + transferId, data = transfer_object, headers=header)
         print("Transfer Response : ", response)
 
-    def update_status(url, transferId) :
+    def update_status(url, transferId, session) :
         transfer_object = {
             "status" : "In Progress",
         }
-        session = requests.Session()
         header = {"Content-type": "application/json"}
         response = session.put(url + "/" + transferId, data = transfer_object, headers=header)
 
