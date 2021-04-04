@@ -15,23 +15,20 @@ def initiate():
     # to login into the container
     login_url = ConfigSingleton.getInstance().config_dict["LOGIN_URL"]
 
-    # username = input("Please enter your username: ")
-    # pwd = input("Please enter your password: ")
-
-    username = "alice"
-    pwd = "Dockerbaba"
+    username = input("Please enter your username: ")
+    pwd = input("Please enter your password: ")
 
     session = portal_client.login(login_url, username, pwd)
 
     if(session is not None):
 
-        # for registration of conatiner with portal
+        # for registration of container with portal
         container_registration = ConfigSingleton.getInstance().config_dict["CONTAINER_REGISTER_URL"]
 
-        # access_key = input("Please enter your access key: ")
-        # secret_key = input("Please enter your secret key: ")
-        access_key = "test3"
-        secret_key = "test3"
+        access_key = input("Please enter your access key: ")
+        secret_key = input("Please enter your secret key: ")
+        # access_key = "test3"
+        # secret_key = "test3"
         portal_client.post_register_container(container_registration, session, access_key, secret_key)
 
         while(True):
