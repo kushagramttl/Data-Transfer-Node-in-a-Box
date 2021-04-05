@@ -4,7 +4,7 @@ from config import ConfigSingleton
 from transfercommand import initiate_transfer
 from multiprocessing import Process, Pool
 from testminio import main
-from  Network.protalClient_transfer import PortalClient_transfer
+from protalClient_transfer import PortalClient_transfer
 
 def initiate():
 
