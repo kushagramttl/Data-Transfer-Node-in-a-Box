@@ -6,8 +6,8 @@ from multiprocessing import Process, Pool
 from testminio import main
 from protalClient_transfer import PortalClient_transfer
 
-def initiate():
 
+def initiate():
     portal_client = PortalClient()
 
     ConfigSingleton.getInstance().set_config_values()
@@ -21,7 +21,7 @@ def initiate():
 
     session = portal_client.login(login_url, username, pwd)
 
-    if(session is not None):
+    if (session is not None):
 
         # for registration of container with portal
         container_registration = ConfigSingleton.getInstance().config_dict["CONTAINER_REGISTER_URL"]
@@ -30,25 +30,32 @@ def initiate():
         secret_key = input("Please enter your secret key: ")
         # access_key = "test3"
         # secret_key = "test3"
-        portal_client._register_container(container_registration, session, access_key, secret_key)
+        portal_client.post_register_container(container_registration, session, access_key, secret_key)
 
         # Code from network
         transferId = input("Please enter transferId: ")
-        PortalClient_transfer.post_transfer( ConfigSingleton.getInstance().config_dict["INIT_TRANSFER_URL"], transferId, session)
 
-        transfers = PortalClient_transfer.get_transfer_list(ConfigSingleton.getInstance().config_dict["GET_TRANSFER_LIST_URL"] , session)
+        transfer_client = PortalClient_transfer()
+
+        transfer_client.post_transfer(ConfigSingleton.getInstance().config_dict["INIT_TRANSFER_URL"], transferId,
+                                      session)
+
+        transfers = transfer_client.get_transfer_list(
+            ConfigSingleton.getInstance().config_dict["GET_TRANSFER_LIST_URL"], session)
 
         transferId = input("Please enter transferId: ")
-        update_transfer = PortalClient_transfer.update_status( ConfigSingleton.getInstance().config_dict["GET_TRANSFER_STATUS_URL"], transferId, session )
+        update_transfer = transfer_client.update_status(
+            ConfigSingleton.getInstance().config_dict["GET_TRANSFER_STATUS_URL"], transferId, session)
         #
 
-        while(True):
-            commands = portal_client.get_commands(ConfigSingleton.getInstance().config_dict["FETCH_COMMAND_URL"], session)
+        while (True):
+            commands = portal_client.get_commands(ConfigSingleton.getInstance().config_dict["FETCH_COMMAND_URL"],
+                                                  session)
             if len(commands) > 0:
                 print("In main : ", commands)
-            # for(command in commands):
+                # for(command in commands):
 
-            # if command["command"] == "START":
+                # if command["command"] == "START":
                 # p = Process(target=initiate_transfer)
                 # p.start()
                 # p.join()
