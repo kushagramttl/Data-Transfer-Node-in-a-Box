@@ -4,6 +4,7 @@ import json
 # ie, alias:bucket
 def init_transfer(local_dir, file_to_send, remote_dir,  local_dir, transferId) :
     # hard_code params
+    '''
     dummy_params_fortest = {
         "srcFs": "disk:/Users/susu/Desktop",
         "srcRemote": "forPyhonTestee.txt",
@@ -12,7 +13,7 @@ def init_transfer(local_dir, file_to_send, remote_dir,  local_dir, transferId) :
         "_async": "true",
         "group": "job/14"
     }
-
+    '''
     params = {
         "srcFs": local_dir,
         "srcRemote": file_to_send,
@@ -38,10 +39,11 @@ def init_transfer(local_dir, file_to_send, remote_dir,  local_dir, transferId) :
         "speedAvg":"0",
         "size":"0"
     }
-    return_json=json.dumps(retuen_obj)
-    return return_json
     print(response.json())
     print(return_json)
+    return_json=json.dumps(retuen_obj)
+    return return_json
+   
 
 '''
 "bytes": total transferred bytes for this file,
@@ -53,9 +55,11 @@ def init_transfer(local_dir, file_to_send, remote_dir,  local_dir, transferId) :
 "size": size of the file in bytes
 '''
 def get_status( transferId ) :
+    '''
     dummy_params_fortest = {
         "group": "job/14"
     }
+    '''
     param = {
         "group": transferId,
     }
