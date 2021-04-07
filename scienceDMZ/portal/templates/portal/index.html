@@ -1,7 +1,10 @@
 <div style="margin-left: 18%; margin-top: 100px">
+  <button><a href="/portal/create-command">Create Command<a/></button>
+    <button><a href="/portal/view-transfers">View Transfers<a/></button>
+
   <h2>My Containers:</h2>
   {% for container in data.all %}
-  <span>Container ID: {{container.id}}</span>
+  <span>Container ID: {{container.container_id}}</span>
   <ul>
     <li>Access Key: {{ container.access_key }}</li>
     <li>Secret Key: {{ container.secret_key }}</li>

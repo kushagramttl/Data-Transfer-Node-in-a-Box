@@ -8,12 +8,27 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.serializers import serialize
 from django.contrib.auth.decorators import login_required
 import json
-
 import uuid
 
 # Create your views here.
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/portal/containers/')
+    else:
+        form = UserCreationForm()
+    return render(request, 'portal/signup.html', {'form': form})
+
 
 def signin(request):
     username = request.GET['username']
@@ -31,12 +46,10 @@ def auth_error(request):
     return HttpResponse("Please login")
 
 
+@login_required(login_url='/portal/autherror/')
 def containers(request):
-    if request.user.is_authenticated:
-        data = Container.objects.filter(user=request.user)
-        return render(request, 'portal/index.html', {'data': data})
-    else:
-        return HttpResponse("Please login")
+    data = Container.objects.filter(user=request.user)
+    return render(request, 'portal/index.html', {'data': data})
 
 
 @login_required(login_url='/portal/autherror/')
@@ -106,3 +119,9 @@ def transfers(request, id=None):
         data = serialize("json", qs, fields=(
             "access_key", "secret_key", "ip_address", "port"))
         return HttpResponse(data, content_type="application/json")
+
+
+@login_required(login_url='/portal/autherror/')
+def view_transfers(request):
+    data = Transfer.objects.filter(sender=request.user)
+    return render(request, 'portal/transfers.html', {'data': data})

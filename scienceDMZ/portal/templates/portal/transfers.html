@@ -1,6 +1,9 @@
 <div style="margin-left: 18%; margin-top: 100px">
   <h2>My Transfers:</h2>
+  {% for transfer in data.all %}
+  <span>Transfer ID: {{transfer.transfer_id}}</span>
   <ul>
-    <li>Transfer ID: 123456, Status: __</li>
+    <li>Status: {{ transfer.status }}</li>
   </ul>
+  {% endfor %}
 </div>
