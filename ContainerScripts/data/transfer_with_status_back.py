@@ -39,9 +39,9 @@ def init_transfer(local_dir, file_to_send, remote_dir,  local_dir, transferId) :
         "speedAvg":"0",
         "size":"0"
     }
+    return_json=json.dumps(retuen_obj)
     print(response.json())
     print(return_json)
-    return_json=json.dumps(retuen_obj)
     return return_json
    
 
