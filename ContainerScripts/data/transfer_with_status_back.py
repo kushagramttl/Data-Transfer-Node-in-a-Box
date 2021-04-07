@@ -4,7 +4,7 @@ import json
 # ie, alias:bucket
 def init_transfer(local_dir, file_to_send, remote_dir,  local_dir, transferId) :
     # hard_code params
-    dummy_params = {
+    dummy_params_fortest = {
         "srcFs": "disk:/Users/susu/Desktop",
         "srcRemote": "forPyhonTestee.txt",
         "dstFs": "test:fortest",
@@ -25,11 +25,23 @@ def init_transfer(local_dir, file_to_send, remote_dir,  local_dir, transferId) :
     header = {
         "Content-type": "application/json"
     }
-    json_object = json.dumps(params)
+    json_object = json.dumps(dummy_params_fortest)
 
     url = "http://localhost:5572/operations/copyfile"
-    response = session.post( url, data=json_object, headers=header )
+    response=session.post( url, data=json_object, headers=header)
+    retuen_obj={
+        "bytes":"0",
+        "eta":"0",
+        "name":file_to_send,
+        "percentage":"0",
+        "speed":"0",
+        "speedAvg":"0",
+        "size":"0"
+    }
+    return_json=json.dumps(retuen_obj)
+    return return_json
     print(response.json())
+    print(return_json)
 
 '''
 "bytes": total transferred bytes for this file,
@@ -41,13 +53,13 @@ def init_transfer(local_dir, file_to_send, remote_dir,  local_dir, transferId) :
 "size": size of the file in bytes
 '''
 def get_status( transferId ) :
-    dummy_params = {
+    dummy_params_fortest = {
         "group": "job/14"
     }
     param = {
-        "group": transferId
+        "group": transferId,
     }
-    json_object = json.dumps(param)
+    json_object = json.dumps(dummy_params_fortest)
     session = requests.Session()
     header = {"Content-type": "application/json"}
     url = "http://localhost:5572/core/stats"
@@ -56,7 +68,9 @@ def get_status( transferId ) :
     # transfer has already completed.
     if response_json['transfers'] == 0 :
         transferring = {
-            "percentage":"100"
+            "eta":"0",
+            "percentage":"100",
+            "speed": "0"
         }
         transferring_object = json.dumps(transferring)
         print( "transferring" ,  transferring_object)
