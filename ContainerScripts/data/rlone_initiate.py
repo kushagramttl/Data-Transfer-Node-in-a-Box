@@ -2,10 +2,7 @@ import subprocess
 
 def make_alias(endpoint, port, alias_name, access_key, secret_key):
   endp = "http://" + endpoint + ":" + port
-  make_alias_cmd = "rclone config create " + alias_name
-  + " s3 env_auth true access_key_id "
-  + access_key + " secret_access_key " + secret_key
-  + " region us-east-1 endpoint " + endp
+  make_alias_cmd = "rclone config create " + alias_name + " s3 env_auth true access_key_id "+ access_key + " secret_access_key " + secret_key+ " region us-east-1 endpoint " + endp
   subprocess.run( make_alias_cmd , shell=True)
 
 def make_bucket( alias_name, bucket_name) :
