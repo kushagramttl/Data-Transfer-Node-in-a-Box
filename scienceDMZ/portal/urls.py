@@ -14,6 +14,7 @@ urlpatterns = [
     path('transfers/<id>', views.transfers, name='update-transfers'),
     path('transfers/', views.transfers, name='transfers'),
     path('view-transfers/', views.view_transfers, name='view_transfers'),
+    path('stop-transfer/<id>', views.stop_transfer, name='stop_transfer'),
     path('create-command/', views.create_command, name='create-command'),
     path('', views.signup, name='home'),
 ]
