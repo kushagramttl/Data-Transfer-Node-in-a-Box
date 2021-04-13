@@ -3,8 +3,6 @@ from portalclient import PortalClient
 from config import ConfigSingleton
 from transfercommand import initiate_transfer
 from multiprocessing import Process, Pool
-from testminio import main
-from protalClient_transfer import PortalClient_transfer
 
 
 def initiate():
@@ -32,21 +30,6 @@ def initiate():
         # secret_key = "test3"
         portal_client.post_register_container(container_registration, session, access_key, secret_key)
 
-        # Code from network
-        transferId = input("Please enter transferId: ")
-
-        transfer_client = PortalClient_transfer()
-
-        transfer_client.post_transfer(ConfigSingleton.getInstance().config_dict["INIT_TRANSFER_URL"], transferId,
-                                      session)
-
-        transfers = transfer_client.get_transfer_list(
-            ConfigSingleton.getInstance().config_dict["GET_TRANSFER_LIST_URL"], session)
-
-        transferId = input("Please enter transferId: ")
-        update_transfer = transfer_client.update_status(
-            ConfigSingleton.getInstance().config_dict["GET_TRANSFER_STATUS_URL"], transferId, session)
-        #
 
         while (True):
             commands = portal_client.get_commands(ConfigSingleton.getInstance().config_dict["FETCH_COMMAND_URL"],
