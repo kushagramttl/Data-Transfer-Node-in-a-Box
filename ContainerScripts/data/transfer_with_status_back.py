@@ -43,7 +43,6 @@ def init_transfer(local_dir, file_to_send, remote_dir,  local_dir, transferId) :
     print(response.json())
     print(return_json)
     return return_json
-   
 
 '''
 "bytes": total transferred bytes for this file,
