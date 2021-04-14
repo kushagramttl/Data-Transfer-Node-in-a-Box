@@ -15,6 +15,13 @@ class PortalClient_transfer:
     def post_transfer(self, url, transferId, session):
         transfer_object = {
             "status": "Start",
+            "bytes"：0,
+            "eta" : 0,
+            "name" :0,
+            "percentage" : 0,
+            "speed" : 0,
+            "speedAvg" : 0,
+            "size" : 0
         }
         json_object = json.dumps(transfer_object)
         header = {"Content-type": "application/json"}
