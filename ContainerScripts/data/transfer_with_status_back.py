@@ -30,7 +30,7 @@ def init_transfer(local_dir, file_to_send, remote_dir,  local_dir, transferId) :
 
     url = "http://localhost:5572/operations/copyfile"
     response=session.post( url, data=json_object, headers=header)
-    retuen_obj={
+    return_obj={
         "bytes":"0",
         "eta":"0",
         "name":file_to_send,

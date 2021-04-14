@@ -14,14 +14,15 @@ class PortalClient_transfer:
 
     def post_transfer(self, url, transferId, session):
         transfer_object = {
-            "status": "Start",
-            "bytes"：0,
-            "eta" : 0,
-            "name" :0,
-            "percentage" : 0,
-            "speed" : 0,
-            "speedAvg" : 0,
-            "size" : 0
+            "status": "In Progress",
+            "file_name" : "",
+            "bytes_transferred": "0",
+            "speed": "0",
+            "average_speed": "0",
+            "eta": "48 8",
+            "percentage": "0",
+            "file_size": "0",
+            "stopped": "false"
         }
         json_object = json.dumps(transfer_object)
         header = {"Content-type": "application/json"}
@@ -31,6 +32,14 @@ class PortalClient_transfer:
     def update_status(self, url, transferId, session):
         transfer_object = {
             "status": "In Progress",
+            "file_name" : "",
+            "bytes_transferred": "500",
+            "speed": "100",
+            "average_speed": "80",
+            "eta": "48 minutes 6 seconds",
+            "percentage": "5",
+            "file_size": "100",
+            "stopped": "false"
         }
         json_object = json.dumps(transfer_object)
         header = {"Content-type": "application/json"}
