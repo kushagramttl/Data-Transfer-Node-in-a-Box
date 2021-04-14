@@ -11,7 +11,7 @@
     <li>ETA: {{ transfer.eta }}</li>
     <li>File Size: {{ transfer.file_size }}</li>
     {% comment %} render below button if transfer is not stopped else render text saying stopped {% endcomment %}
-    <button><a href="/portal/stop-transfer/{{transfer.transfer_id}}" >Stop<a/></button>
+    {% comment %} <button><a href="/portal/stop-transfer/{{transfer.transfer_id}}" >Stop<a/></button> {% endcomment %}
   </ul>
   {% endfor %}
 </div>
