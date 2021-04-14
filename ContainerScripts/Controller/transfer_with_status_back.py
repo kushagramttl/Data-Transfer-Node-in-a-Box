@@ -4,14 +4,14 @@ import json
 # ie, alias:bucket
 def init_transfer(local_dir, file_to_send, remote_dir,  local_dir, transferId) :
     # hard_code params
-    dummy_params = {
-        "srcFs": "disk:/Users/susu/Desktop",
-        "srcRemote": "forPyhonTestee.txt",
-        "dstFs": "test:fortest",
-        "dstRemote":"fortest.txt",
-        "_async": "true",
-        "group": "job/14"
-    }
+#     dummy_params = {
+#         "srcFs": "disk:/Users/susu/Desktop",
+#         "srcRemote": "forPyhonTestee.txt",
+#         "dstFs": "test:fortest",
+#         "dstRemote":"fortest.txt",
+#         "_async": "true",
+#         "group": "job/14"
+#     }
 
     params = {
         "srcFs": local_dir,
@@ -41,9 +41,9 @@ def init_transfer(local_dir, file_to_send, remote_dir,  local_dir, transferId) :
 "size": size of the file in bytes
 '''
 def get_status( transferId ) :
-    dummy_params = {
-        "group": "job/14"
-    }
+#     dummy_params = {
+#         "group": "job/14"
+#     }
     param = {
         "group": transferId
     }
