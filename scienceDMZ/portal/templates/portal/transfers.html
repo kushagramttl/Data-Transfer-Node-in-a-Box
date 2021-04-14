@@ -3,7 +3,15 @@
   {% for transfer in data.all %}
   <span>Transfer ID: {{transfer.transfer_id}}</span>
   <ul>
-    <li>Status: {{ transfer.status }}</li>
+    <li>File Name: {{ transfer.file_name }}</li>
+    <li>Percentage Completed: {{ transfer.percentage }}</li>
+    <li>Bytes Transferred: {{ transfer.bytes_transferred }}</li>
+    <li>Speed: {{ transfer.speed }}</li>
+    <li>Average Speed: {{ transfer.average_speed }}</li>
+    <li>ETA: {{ transfer.eta }}</li>
+    <li>File Size: {{ transfer.file_size }}</li>
+    {% comment %} render below button if transfer is not stopped else render text saying stopped {% endcomment %}
+    {% comment %} <button><a href="/portal/stop-transfer/{{transfer.transfer_id}}" >Stop<a/></button> {% endcomment %}
   </ul>
   {% endfor %}
 </div>

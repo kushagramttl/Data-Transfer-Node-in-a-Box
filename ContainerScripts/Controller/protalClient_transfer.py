@@ -25,7 +25,7 @@ class PortalClient_transfer:
         }
         json_object = json.dumps(transfer_object)
         header = {"Content-type": "application/json"}
-        response = session.post(url + "/" + transferId, data=json_object, headers=header)
+        response = session.post(url + "/" + transferId, data=json.dumps(json_object), headers=header)
         print("Transfer Response : ", response)
 
     def update_status(self, url, transferId, session):

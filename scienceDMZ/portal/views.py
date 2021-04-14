@@ -80,13 +80,15 @@ def commands(request, id=None):
         secret_key = request.POST['secret_key']
         port = request.POST['port']
         ip_address = request.POST['ip_address']
+        file_name = request.POST['file_name']
         Command.objects.create(command_id=command_id, sender=user, access_key=access_key,
-                               secret_key=secret_key, port=port, ip_address=ip_address)
+                               secret_key=secret_key, port=port, ip_address=ip_address, file_name=file_name)
         return JsonResponse({'command_id': command_id})
     elif request.method == "GET":
         qs = Command.objects.filter(sender=user)
+        print(qs)
         data = serialize("json", qs, fields=(
-            "access_key", "secret_key", "ip_address", "port"))
+            "access_key", "secret_key", "ip_address", "port", "file_name"))
         return HttpResponse(data, content_type="application/json")
     elif request.method == "DELETE":
         commands = Command.objects.filter(command_id=id)
@@ -94,10 +96,14 @@ def commands(request, id=None):
         if(count > 0):
             Command.objects.filter(command_id=id).delete()
             return JsonResponse({'deleted': "true"})
-
         else:
             return JsonResponse({'deleted': "false"})
 
+
+@login_required(login_url='/portal/autherror/')
+def stop_transfer(request, id=None):
+    # make transfer with given IDs stop field to true and rerender view transfer page
+    pass
 
 @login_required(login_url='/portal/autherror/')
 def create_command(request):
@@ -108,11 +114,31 @@ def create_command(request):
 def transfers(request, id=None):
     user = User.objects.get(id=request.user.id)
     if request.method == "POST":
-        Transfer.objects.create(transfer_id=id, sender=user, status="Started")
+        file_name = json.loads(
+            request.body.decode("utf-8"))['file_name']
+        Transfer.objects.create(
+            transfer_id=id, sender=user, file_name=file_name
+        )
         return JsonResponse({'transfer_created': "true"})
     elif request.method == "PUT":
-        status = json.loads(request.body.decode("utf-8"))['status']
-        Transfer.objects.filter(transfer_id=id).update(status=status)
+        percentage = json.loads(request.body.decode("utf-8"))['percentage']
+        bytes_transferred = json.loads(
+            request.body.decode("utf-8"))['bytes_transferred']
+        speed = json.loads(request.body.decode("utf-8"))['speed']
+        file_name = json.loads(request.body.decode("utf-8"))['file_name']
+        file_size = json.loads(request.body.decode("utf-8"))['file_size']
+        eta = json.loads(request.body.decode("utf-8"))['eta']
+        average_speed = json.loads(
+            request.body.decode("utf-8"))['average_speed']
+        stopped = json.loads(request.body.decode("utf-8"))['stopped']
+        print('st '+ stopped)
+        if stopped == "true":
+            stop = True
+        else:
+            stop = False
+        Transfer.objects.filter(transfer_id=id).update(percentage=percentage, bytes_transferred=bytes_transferred,
+                                                       speed=speed, average_speed=average_speed, eta=eta, file_name=file_name, file_size=file_size,
+                                                       stopped=stop)
         return JsonResponse({'transfer_updated': "true"})
     elif request.method == "GET":
         qs = Transfer.objects.filter(sender=user)
