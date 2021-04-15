@@ -23,8 +23,11 @@ def initiate_transfer(command_obj):
         # Bucket name
         bucket_name = 'data'
 
+        # Alias name
+        alias_name = 'receiver'
+
         # Create a uuid over here
-        make_alias(command['fields']['ip_address'], '9000', 'receiver', command['fields']['access_key'],
+        make_alias(command['fields']['ip_address'], '9000', alias_name, command['fields']['access_key'],
                    command['fields']['secret_key'])
         make_bucket('receiver', bucket_name)
 
@@ -33,7 +36,7 @@ def initiate_transfer(command_obj):
 
         transfer_client = PortalClient_transfer()
 
-        transfer_init = init_transfer('data', command['fields']['file_name'], bucket_name, transfer_id)
+        transfer_init = init_transfer('data', command['fields']['file_name'], alias_name, bucket_name, transfer_id)
 
         transfer_client.post_transfer(ConfigSingleton.getInstance().config_dict["INIT_TRANSFER_URL"], transfer_id,
                                       session, transfer_init.name)

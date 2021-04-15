@@ -7,7 +7,7 @@ from multiprocessing import Process, Pool
 
 def initiate():
 
-    cmd = "rclone rcd --rc-no-auth"
+    cmd = "rclone config create disk local"
     subprocess.run( cmd , shell=True)
 
     ConfigSingleton.getInstance().set_config_values()

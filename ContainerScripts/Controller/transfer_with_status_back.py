@@ -5,7 +5,7 @@ import threading
 
 # remote_dir here should contain alias to that endpoint and the bucket to put this file to.
 # ie, alias:bucket
-def init_transfer(local_dir, file_to_send, remote_dir, transferId):
+def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket , transferId):
     # hard_code params
     """
     dummy_params_fortest = {
@@ -17,11 +17,10 @@ def init_transfer(local_dir, file_to_send, remote_dir, transferId):
         "group": "job/14"
     }
     """
-
     params = {
-        "srcFs": local_dir,
+        "srcFs": "disk:/"+local_dir,
         "srcRemote": file_to_send,
-        "dstFs": remote_dir,
+        "dstFs": remote_alias + ":" + remote_bucket
         "dstRemote": file_to_send,
         "_async": "true",
         "group": transferId
