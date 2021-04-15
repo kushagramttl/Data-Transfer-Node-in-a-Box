@@ -54,7 +54,7 @@ def init_transfer(local_dir, file_to_send, remote_dir, transferId) :
 "speedAvg": current speed in bytes/sec as an exponentially weighted moving average,
 "size": size of the file in bytes
 '''
-def get_status_helper( transferId ) :
+def get_status( transferId ) :
     '''
     dummy_params_fortest = {
         "group": "job/14"
@@ -88,6 +88,3 @@ def get_status_helper( transferId ) :
         print( "transferring" ,  transferring)
         return transferring
 
-def get_status( transferId ):
-  threading.Timer(5.0, get_status_helper).start()
-  print "Hi there!"
