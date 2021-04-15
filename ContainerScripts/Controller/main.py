@@ -1,3 +1,4 @@
+import subprocess
 import time
 from portalclient import PortalClient
 from config import ConfigSingleton
@@ -6,9 +7,10 @@ from multiprocessing import Process, Pool
 
 
 def initiate():
-
     cmd = "rclone config create disk local"
-    subprocess.run( cmd , shell=True)
+    subprocess.run(cmd, shell=True)
+
+    portal_client = PortalClient()
 
     ConfigSingleton.getInstance().set_config_values()
     wait_time = ConfigSingleton.getInstance().config_dict["WAIT_TIME"]
