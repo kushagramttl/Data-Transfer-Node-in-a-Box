@@ -14,7 +14,7 @@ def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket , transfe
         "dstFs": "test:fortest",
         "dstRemote":"fortest.txt",
         "_async": "true",
-        "group": "job/14"
+        "_group": "job/14"
     }
     """
     params = {
@@ -23,7 +23,7 @@ def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket , transfe
         "dstFs": remote_alias + ":" + remote_bucket,
         "dstRemote": file_to_send,
         "_async": "true",
-        "group": transferId,
+        "_group": transferId,
     }
     session = requests.Session()
     header = {
@@ -62,11 +62,11 @@ def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket , transfe
 def get_status(transferId):
     '''
     dummy_params_fortest = {
-        "group": "job/14"
+        "groupid": "job/14"
     }
     '''
     param = {
-        "group": transferId,
+        "groupid": transferId,
     }
     json_object = json.dumps(param)
     session = requests.Session()
