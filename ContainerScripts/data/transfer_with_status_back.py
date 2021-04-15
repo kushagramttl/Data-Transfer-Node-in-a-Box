@@ -1,5 +1,6 @@
 import requests
 import json
+import threading
 # remote_dir here should contain alias to that endpoint and the bucket to put this file to.
 # ie, alias:bucket
 def init_transfer(local_dir, file_to_send, remote_dir, transferId) :
@@ -53,7 +54,7 @@ def init_transfer(local_dir, file_to_send, remote_dir, transferId) :
 "speedAvg": current speed in bytes/sec as an exponentially weighted moving average,
 "size": size of the file in bytes
 '''
-def get_status( transferId ) :
+def get_status_helper( transferId ) :
     '''
     dummy_params_fortest = {
         "group": "job/14"
@@ -86,3 +87,7 @@ def get_status( transferId ) :
         transferring = response_json['transferring'][0]
         print( "transferring" ,  transferring)
         return transferring
+
+def get_status( transferId ):
+  threading.Timer(5.0, get_status_helper).start()
+  print "Hi there!"
