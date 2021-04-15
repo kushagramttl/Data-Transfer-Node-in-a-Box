@@ -6,7 +6,9 @@ from multiprocessing import Process, Pool
 
 
 def initiate():
-    portal_client = PortalClient()
+
+    cmd = "rclone rcd --rc-no-auth"
+    subprocess.run( cmd , shell=True)
 
     ConfigSingleton.getInstance().set_config_values()
     wait_time = ConfigSingleton.getInstance().config_dict["WAIT_TIME"]
