@@ -19,7 +19,7 @@ def initiate():
 
     session = portal_client.login(login_url, username, pwd)
 
-    if (session is not None):
+    if session is not None:
 
         # for registration of container with portal
         container_registration = ConfigSingleton.getInstance().config_dict["CONTAINER_REGISTER_URL"]
@@ -30,8 +30,7 @@ def initiate():
         # secret_key = "test3"
         portal_client.post_register_container(container_registration, session, access_key, secret_key)
 
-
-        while (True):
+        while True:
             commands = portal_client.get_commands(ConfigSingleton.getInstance().config_dict["FETCH_COMMAND_URL"],
                                                   session)
             if len(commands) > 0:
@@ -44,8 +43,10 @@ def initiate():
                 # p.join()
                 number_of_processes = len(commands)
 
+                command_objects = [{'session': session, 'command': x} for x in commands]
+
                 with Pool(number_of_processes) as p:
-                    results = p.map(initiate_transfer, commands)
+                    results = p.map(initiate_transfer, command_objects)
                     print(results)
 
             time.sleep(wait_time)

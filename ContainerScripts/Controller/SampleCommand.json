@@ -1,0 +1,7 @@
+{
+  'access_key': 'minio',
+  'secret_key': 'minio123',
+  'ip_address': '128.31.25.199',
+  'port': '9000',
+  'file_name': ''
+}

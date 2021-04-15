@@ -5,16 +5,16 @@ import json
 class PortalClient_transfer:
     def get_transfer_list(self, url, session):
         response = session.get(url)
-        print("Get transfers response : ", respose)
+        print("Get transfers response : ", response)
         if response != None:
-            transfers = respose.json()
+            transfers = response.json()
             print("Get transfers : ", transfers)
             return transfers
         return {}
 
-    def post_transfer(self, url, transferId, session):
+    def post_transfer(self, url, transferId, session, file_name):
         transfer_object = {
-            "file_name" : "",
+            "file_name": file_name,
             "bytes_transferred": "0",
             "speed": "0",
             "average_speed": "0",
@@ -29,10 +29,12 @@ class PortalClient_transfer:
         print("Transfer Response : ", response)
 
     def update_status(self, url, transferId, session, status_obj):
-        status = false
-        if( int(status_obj.percentage) == 100 ) status = true
+        status = False
+        if int(status_obj.percentage) == 100:
+            status = True
+
         transfer_object = {
-            "file_name" : status_obj.name,
+            "file_name": status_obj.name,
             "bytes_transferred": status_obj.bytes,
             "speed": status_obj.speed,
             "average_speed": status_obj.speedAvg,
