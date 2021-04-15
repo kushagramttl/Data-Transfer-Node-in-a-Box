@@ -20,10 +20,10 @@ def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket , transfe
     params = {
         "srcFs": "disk:/"+local_dir,
         "srcRemote": file_to_send,
-        "dstFs": remote_alias + ":" + remote_bucket
+        "dstFs": remote_alias + ":" + remote_bucket,
         "dstRemote": file_to_send,
         "_async": "true",
-        "group": transferId
+        "group": transferId,
     }
     session = requests.Session()
     header = {
