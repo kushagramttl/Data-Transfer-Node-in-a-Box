@@ -1,5 +1,4 @@
 import multiprocessing
-from rclone_initiate import make_bucket
 from protalClient_transfer import PortalClient_transfer
 from config import ConfigSingleton
 import uuid
@@ -29,7 +28,7 @@ def initiate_transfer(command_obj):
         # Create a uuid over here
         make_alias(command['fields']['ip_address'], '9000', alias_name, command['fields']['access_key'],
                    command['fields']['secret_key'])
-        make_bucket('receiver', bucket_name)
+        # make_bucket('receiver', bucket_name)
 
         # Code from network
         transfer_id = str(uuid.uuid4())
@@ -38,8 +37,8 @@ def initiate_transfer(command_obj):
 
         transfer_init = init_transfer('data', command['fields']['file_name'], alias_name, bucket_name, transfer_id)
 
-        transfer_client.post_transfer(ConfigSingleton.getInstance().config_dict["INIT_TRANSFER_URL"], transfer_id,
-                                      session, transfer_init.name)
+        # transfer_client.post_transfer(ConfigSingleton.getInstance().config_dict["INIT_TRANSFER_URL"], transfer_id,
+        #                               session, transfer_init['name'])
 
     except Exception as e:
         print(e)

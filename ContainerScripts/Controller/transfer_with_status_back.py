@@ -2,48 +2,61 @@ import requests
 import json
 import threading
 
-def add_local() :
-    map = {
-    }
-    map_json = json.dumps(map)
+session = requests.Session()
+
+
+def add_local():
+    print('Inside add local')
+
     params = {
         "name": "disk",
         "type": "local",
-        "parameters": map_json
+        "parameters": {}
     }
-    session = requests.Session()
+
     header = {
         "Content-type": "application/json"
     }
     params_json = json.dumps(params)
-    url = "http://localhost:5572/config/create"
+    url = "http://rclone:8000/config/create"
     response = session.post(url, data=params_json, headers=header)
+    print(response)
+    print(response.text)
 
 
-def make_alias( endpoint, port, alias_name, access_key, secret_key ) :
-    map = {
-        "access_key_id": access_key,
-        "secret_access_key": secret_key,
-        "region": "us-east-1",
-        "endpoint": endpoint+":"+port
-    }
-    map_json = json.dumps(map)
+def make_alias(endpoint, port, alias_name, access_key, secret_key):
+    print('Inside make alias')
+    # map = {
+    #     "access_key_id": access_key,
+    #     "secret_access_key": secret_key,
+    #     "region": "us-east-1",
+    #     "endpoint": endpoint + ":" + port
+    # }
+    # map_json = json.dumps(map)
     params = {
         "name": alias_name,
         "type": "s3",
-        "parameters": map_json
+        "parameters": {
+            "access_key_id": access_key,
+            "secret_access_key": secret_key,
+            "region": "us-east-1",
+            "endpoint": endpoint + ":" + port
+        }
     }
-    session = requests.Session()
+
     header = {
         "Content-type": "application/json"
     }
     params_json = json.dumps(params)
-    url = "http://localhost:5572/config/create"
+    url = "http://rclone:8000/config/create"
     response = session.post(url, data=params_json, headers=header)
+    print(response)
+    print(response.text)
+
 
 # remote_dir here should contain alias to that endpoint and the bucket to put this file to.
 # ie, alias:bucket
-def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket , transferId):
+def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket, transfer_id):
     # hard_code params
     """
     dummy_params_fortest = {
@@ -56,20 +69,19 @@ def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket , transfe
     }
     """
     params = {
-        "srcFs": "disk:/"+local_dir,
+        "srcFs": "disk:./data",
         "srcRemote": file_to_send,
         "dstFs": remote_alias + ":" + remote_bucket,
         "dstRemote": file_to_send,
         "_async": "true",
-        "_group": transferId,
+        "_group": transfer_id,
     }
-    session = requests.Session()
     header = {
         "Content-type": "application/json"
     }
     json_object = json.dumps(params)
 
-    url = "http://localhost:5572/operations/copyfile"
+    url = "http://rclone:8000/operations/copyfile"
     response = session.post(url, data=json_object, headers=header)
     return_obj = {
         "bytes": "0",
@@ -80,10 +92,10 @@ def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket , transfe
         "speedAvg": "0",
         "size": "0"
     }
-    return_json = json.dumps(return_obj)
+    print(response)
+    print(response.text)
     print(response.json())
-    print(return_json)
-    return return_json
+    return return_obj
 
 
 '''
@@ -107,9 +119,8 @@ def get_status(transferId):
         "groupid": transferId,
     }
     json_object = json.dumps(param)
-    session = requests.Session()
     header = {"Content-type": "application/json"}
-    url = "http://localhost:5572/core/stats"
+    url = "http://rclone:5572/core/stats"
     response = session.post(url, data=json_object, headers=header)
     response_json = response.json()
 
