@@ -1,9 +1,9 @@
 import multiprocessing
-from rclone_initiate import make_alias, make_bucket
+from rclone_initiate import make_bucket
 from protalClient_transfer import PortalClient_transfer
 from config import ConfigSingleton
 import uuid
-from transfer_with_status_back import init_transfer, get_status
+from transfer_with_status_back import init_transfer, get_status, make_alias
 
 """
 The method is the point where transfer of files from th sender to the receiver is managed.

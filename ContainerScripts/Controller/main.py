@@ -4,11 +4,11 @@ from portalclient import PortalClient
 from config import ConfigSingleton
 from transfercommand import initiate_transfer
 from multiprocessing import Process, Pool
-
+from transfer_with_status_back import add_local
 
 def initiate():
-    cmd = "rclone config create disk local"
-    subprocess.run(cmd, shell=True)
+
+    add_local()
 
     portal_client = PortalClient()
 

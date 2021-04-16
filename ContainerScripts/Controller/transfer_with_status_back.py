@@ -2,6 +2,23 @@ import requests
 import json
 import threading
 
+def add_local() :
+    map = {
+    }
+    map_json = json.dumps(map)
+    params = {
+        "name": "disk",
+        "type": "local",
+        "parameters": map_json
+    }
+    session = requests.Session()
+    header = {
+        "Content-type": "application/json"
+    }
+    params_json = json.dumps(params)
+    url = "http://localhost:5572/config/create"
+    response = session.post(url, data=params_json, headers=header)
+
 
 def make_alias( endpoint, port, alias_name, access_key, secret_key ) :
     map = {
