@@ -3,6 +3,27 @@ import json
 import threading
 
 
+def make_alias( endpoint, port, alias_name, access_key, secret_key ) :
+    map = {
+        "access_key_id": access_key,
+        "secret_access_key": secret_key,
+        "region": "us-east-1",
+        "endpoint": endpoint+":"+port
+    }
+    map_json = json.dumps(map)
+    params = {
+        "name": alias_name,
+        "type": "s3",
+        "parameters": map_json
+    }
+    session = requests.Session()
+    header = {
+        "Content-type": "application/json"
+    }
+    params_json = json.dumps(params)
+    url = "http://localhost:5572/config/create"
+    response = session.post(url, data=params_json, headers=header)
+
 # remote_dir here should contain alias to that endpoint and the bucket to put this file to.
 # ie, alias:bucket
 def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket , transferId):
