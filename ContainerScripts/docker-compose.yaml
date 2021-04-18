@@ -10,18 +10,27 @@ services:
     environment:
       MINIO_ROOT_USER: minio
       MINIO_ROOT_PASSWORD: minio123
+    command: server /data
+  rclone:
+    container_name: rclone
+    image: kushagramttl/rclone
+    ports: 
+      - "5572:5572"
     networks:
       - backend
-    command: server /data
-  python-service:
+    command: rclone rcd --rc-no-auth
+  controller:
     container_name: controller
     image: kushagramttl/samplecontroller
     volumes: 
       - ./send:/usr/src/code/data
-    depends_on:
-      - minio
     networks:
       - backend
+    depends_on:
+      - minio
+      - rclone
 networks:
   backend:
-    driver: bridge
+    driver: bridge 
+  
+    
