@@ -72,7 +72,7 @@ The solution would be using services such as MinIO which allows a consistent, pe
 </p>
 
 
-The above diagram shows two systems - sender’s laptop and receiver’s virtual machine. Each of them has a local file system on which the two containers run. We have two containers - MinIO container and Controller container. The transfer is initiated by the controller container on the sender’s end and the receiver’s MinIO container receives the data.
+The above diagram shows two systems - sender’s laptop and receiver’s virtual machine. Each of them has a local file system on which the three containers run. We have three containers - MinIO container, Controller container and RClone container. The transfer is initiated by the rclone container on the sender’s end and the receiver’s MinIO container receives the data.
 
 ### Understanding Container-Portal Interaction:
 <p align="center">
