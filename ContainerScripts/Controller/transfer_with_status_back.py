@@ -18,7 +18,7 @@ def add_local():
         "Content-type": "application/json"
     }
     params_json = json.dumps(params)
-    url = "http://rclone:8000/config/create"
+    url = "http://rclone:5572/config/create"
     response = session.post(url, data=params_json, headers=header)
     print(response)
     print(response.text)
@@ -40,15 +40,18 @@ def make_alias(endpoint, port, alias_name, access_key, secret_key):
             "access_key_id": access_key,
             "secret_access_key": secret_key,
             "region": "us-east-1",
-            "endpoint": endpoint + ":" + port
+            "endpoint": "http://" + endpoint + ":" + port
         }
     }
 
     header = {
         "Content-type": "application/json"
     }
+
+    print("Parameters for creating alias are: ", params)
+
     params_json = json.dumps(params)
-    url = "http://rclone:8000/config/create"
+    url = "http://rclone:5572/config/create"
     response = session.post(url, data=params_json, headers=header)
     print(response)
     print(response.text)
@@ -69,7 +72,7 @@ def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket, transfer
     }
     """
     params = {
-        "srcFs": "disk:./data",
+        "srcFs": "disk:/root/data",
         "srcRemote": file_to_send,
         "dstFs": remote_alias + ":" + remote_bucket,
         "dstRemote": file_to_send,
@@ -81,7 +84,9 @@ def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket, transfer
     }
     json_object = json.dumps(params)
 
-    url = "http://rclone:8000/operations/copyfile"
+    print("parameters for sending file are: ", params)
+
+    url = "http://rclone:5572/operations/copyfile"
     response = session.post(url, data=json_object, headers=header)
     return_obj = {
         "bytes": "0",

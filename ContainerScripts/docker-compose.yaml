@@ -18,12 +18,11 @@ services:
       - "5572:5572"
     networks:
       - backend
-    command: rclone rcd --rc-no-auth
+    volumes: 
+      - ./send:/root/data
   controller:
     container_name: controller
     image: kushagramttl/samplecontroller
-    volumes: 
-      - ./send:/usr/src/code/data
     networks:
       - backend
     depends_on:

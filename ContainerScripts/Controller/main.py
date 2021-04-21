@@ -4,12 +4,12 @@ from portalclient import PortalClient
 from config import ConfigSingleton
 from transfercommand import initiate_transfer
 from multiprocessing import Process, Pool
-from transfer_with_status_back import add_local
+from transfer_with_status_back import add_local, get_status
 
 def initiate():
+    input("Press a key to continue")
 
     add_local()
-
     portal_client = PortalClient()
 
     ConfigSingleton.getInstance().set_config_values()
@@ -55,7 +55,7 @@ def initiate():
 
             time.sleep(wait_time)
 
-            break
+
 
 
 # main()
