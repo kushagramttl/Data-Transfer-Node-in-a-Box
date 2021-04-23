@@ -1,6 +1,6 @@
 import requests
 import json
-import threading
+import sys
 
 session = requests.Session()
 
@@ -129,8 +129,10 @@ def get_status(transferId):
     response = session.post(url, data=json_object, headers=header)
     response_json = response.json()
 
+    print("Response json: ", response_json)
+
     # transfer has already completed.
-    if response_json['transfers'] == 0:
+    if 'transferring' not in response_json or len(response_json['transferring']) == 0:
         transferring = {
             "eta": "0",
             "percentage": "100",
@@ -140,10 +142,11 @@ def get_status(transferId):
             "size": "0",
             "speedAvg": "0"
         }
-        transferring_object = json.dumps(transferring)
-        print("transferring", transferring_object)
         return transferring
     else:
         transferring = response_json['transferring'][0]
-        print("transferring", transferring)
+
+        if transferring["eta"] is None:
+            transferring["eta"] = sys.maxsize
+
         return transferring

@@ -39,5 +39,12 @@ class PortalClient:
             return commands
         return {}
 
+    def delete_command(self, url, comamnd_id, session):
+        delete_url = url + str(comamnd_id)
+        response = session.delete(delete_url)
+        print(response.text)
+
+        return response
+
     def __init__(self):
         print("Client initiated!")
