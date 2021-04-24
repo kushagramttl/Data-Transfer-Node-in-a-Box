@@ -1,7 +1,9 @@
 import requests
 import json
 
-
+"""
+The 
+"""
 class PortalClient_transfer:
     def get_transfer_list(self, url, session):
         response = session.get(url)
@@ -48,7 +50,7 @@ class PortalClient_transfer:
         json_object = json.dumps(transfer_object)
         header = {"Content-type": "application/json"}
         response = session.put(url + transferId, data=json_object, headers=header)
-        print(response.text)
+        print("Response from update status: ", response.text)
 
     def __init__(self):
-        print("Client initiated!")
+        print("Client transfer methods initiated")

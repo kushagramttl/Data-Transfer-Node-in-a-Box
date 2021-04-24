@@ -20,19 +20,14 @@ def add_local():
     params_json = json.dumps(params)
     url = "http://rclone:5572/config/create"
     response = session.post(url, data=params_json, headers=header)
-    print(response)
-    print(response.text)
+
+
+"""
+Method creates a new alias on the Rclone server for transfer.
+"""
 
 
 def make_alias(endpoint, port, alias_name, access_key, secret_key):
-    print('Inside make alias')
-    # map = {
-    #     "access_key_id": access_key,
-    #     "secret_access_key": secret_key,
-    #     "region": "us-east-1",
-    #     "endpoint": endpoint + ":" + port
-    # }
-    # map_json = json.dumps(map)
     params = {
         "name": alias_name,
         "type": "s3",
@@ -48,19 +43,22 @@ def make_alias(endpoint, port, alias_name, access_key, secret_key):
         "Content-type": "application/json"
     }
 
-    print("Parameters for creating alias are: ", params)
+    print("Creating alias for transfer to the receiver. Parameters for creating alias are: ", params)
 
     params_json = json.dumps(params)
     url = "http://rclone:5572/config/create"
     response = session.post(url, data=params_json, headers=header)
-    print(response)
-    print(response.text)
+    print("The response from server to create an alias: ", response.text)
 
 
-# remote_dir here should contain alias to that endpoint and the bucket to put this file to.
-# ie, alias:bucket
-def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket, transfer_id):
-    # hard_code params
+"""
+Method that instructs Rclone server to initiate the transfer
+remote_dir here should contain alias to that endpoint and the bucket to put this file to.
+ie, alias:bucket
+"""
+
+
+def init_transfer(file_to_send, remote_alias, remote_bucket, transfer_id):
     """
     dummy_params_fortest = {
         "srcFs": "disk:/Users/usr/Desktop",
@@ -128,8 +126,6 @@ def get_status(transferId):
     url = "http://rclone:5572/core/stats"
     response = session.post(url, data=json_object, headers=header)
     response_json = response.json()
-
-    print("Response json: ", response_json)
 
     # transfer has already completed.
     if 'transferring' not in response_json or len(response_json['transferring']) == 0:
