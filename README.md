@@ -7,7 +7,7 @@ We are reaching a point in science where our ability to generate and collect exp
 The project aims to make large data transfers less painful for the end users of ScienceDMZ and focuses on the following:
    * Users must have a way of packaging their data(ScienceDMZ and DTNs) into a container collection.
    * Users must have access to a portal where they can register their packaged containers and coordinate their data transfers.
-   * Transfers must work in a reasonably fast and reliable manner, with some kind of network checking/monitoring before and during the moving of data.
+   * Transfers must work in a reasonably fast and reliable manner, with timely updates.
 
 # 2. Users/Personas Of The Project:
 
@@ -144,4 +144,4 @@ For April 24, 2021:
 * Setup rclone server container to allow detailed status updates to portal
 * Code Cleaning, Refactoring, Testing and Updated Deployment
 
-The further releases of applications are not fixed yet for a particular date and are dependent on evaluation results from experiments being conducted for the project.
+
