@@ -11,27 +11,32 @@ The project aims to make large data transfers less painful for the end users of 
 
 # 2. Users/Personas Of The Project:
 
-This project targets researchers and scientists who are dealing with giant data sets and have a great need for sharing and moving large datasets globally. 
-There are mainly two users who will be using the application:
-1. Sender
-2. Receiver
-* Sender: 
- * Users will have access to a portal where they can initiate large data transfers. Once they successfully register and log in to this website,  they will be able to download Dockerfile and docker-compose.yaml file from the docker hub.
- * When the user runs these files, it will build two containers - minion and controller container.
- * The controller container will poll commands from the portal. These commands are given by the sender on the portal.
- * The sender can initiate the transfer using the minio client command through the portal. The controller container will start the transfer. The commands for transfer :
-   1. First, sender will create an alias for receiver’s container using the mc command: mc config host add --api s3v4 bobmachine http://bobmachine.bobco.com :9000 accesskey  secret
-   2. Then the sender will transfer using the following command: mc config host add --api s3v4 bobmachine http://bobmachine.bobco.com :9000 accesskey  secret
- * (Note : the receiver needs to send it’s minio accesskey and secret key to the sender via email/message).
-   * The controller container will also send the status updates to the portal continuously. 
+This project targets researchers and scientists who are dealing with giant data sets and have a great need for sharing and moving large datasets globally. Let's take a use case to better understand the users.
 
-* Receiver: 
-  * On the receiver side, the receiver too has to login on the portal and download the files from the docker-hub. (same step that sender did).
-  * The receiver will put the minio access key and secret key on the portal.
-  * The minio container for the receiver will receive the files (sender has already initiated using his keys).
-  * The minio container will save these files to the local file system of the receiver.
+### Use Case:
+Alice(Sender) and Bob(Receiver) are able to transfer data over a network. 
+
+Sender(Alice):
+1. Alice registers a new account on the Web Portal and logs in to this account.
+2. Alice creates a data transfer directory on her laptop which have “send” and “receive” sub-directories
+   1. /home/alice/transfer/send
+   2. /home/alice/transfer/receive
+3. Alice downloads an image from docker hub and starts a container with terminal commands.
+4. Alice hits the /register API endpoint after signing in and gets a registration ID (referred to as containerID below) to use for the container.
+5. By hitting /portal/containers/ endpoint, Alice can find a list of containers she created.
+6. Alice goes to the send path on the portal and fills out a form with Bob’s containerID, access keys, secret key, Bob’s IP address, port and the filename to send, which will create a command for her container.
+7. Alice can create more commands for her container. Then the portal will send a command queue for Alice’s container when requested and those commands will be executed sequentially. Alice will also be able to delete the commands that have already been executed if she wants.
+8. Alice decides to start the transfer from her container to Bob’s container, and the transfer status would be shown with initial parameters.
+9. Alice can visit the portal to view her active transfers and get status updates about them.
+10. Alice could sign out when she is done.
+
+Receiver (Bob):
+1. Bob registers a new account on the Web Portal and logs in to this account.
+2. Bob downloads an image from docker hub and starts a container with terminal commands.
+3. Bob gets an access key and secret key from minIO.
+4. Bob sends the access keys, containerID to Alice over email/call.
+5. Bob’s will receive the file from Alice and the file will be saved at the location /home/bob/transfer/received/data/foo.txt once the transfer succeeds.
  
-
 # 3. Scope and Features Of The Project:
 
 The solution would be presented as a Proof of Concept where the team plans to create a technology backlog to learn the technologies required for the project. Such as learning how to create containers and using services such as MinIO.
@@ -132,5 +137,11 @@ For April 9, 2021:
 * Container interacting with the user for input.
 * Container integration for transfer of data over network.
 
+For April 24, 2021:
+* Add Detailed Transfer Status Updates capabilities on the Container and Portal.
+* Add Command Delete Functionality.
+* Setup Transfer Stopping Model and View to help the next iteration of people working on this Project.
+* Setup rclone server container to allow detailed status updates to portal
+* Code Cleaning, Refactoring, Testing and Updated Deployment
 
 The further releases of applications are not fixed yet for a particular date and are dependent on evaluation results from experiments being conducted for the project.
