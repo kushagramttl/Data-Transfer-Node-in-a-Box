@@ -33,8 +33,10 @@ def initiate():
         portal_client.post_register_container(container_registration, session, access_key, secret_key)
 
         while True:
+            print("Fetching commands...")
             commands = portal_client.get_commands(ConfigSingleton.getInstance().config_dict["FETCH_COMMAND_URL"],
                                                   session)
+            print("Commands received: ", commands)
             if len(commands) > 0:
                 print("Commands received from portal are: ", commands)
 

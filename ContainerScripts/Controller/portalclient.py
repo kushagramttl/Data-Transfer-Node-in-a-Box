@@ -23,7 +23,7 @@ class PortalClient:
             "access_key": access_key,
             "secret_key": secret_key,
             "port": "9000",
-            "ip_address": "localhoast:8000"
+            "ip_address": "controller"
         }
 
         header = {"Content-type": "application/json"}

@@ -61,7 +61,7 @@ def initiate_transfer(command_obj):
 
             time.sleep(status_wait)
 
-            if status["percentage"] == 100:
+            if status["percentage"] == 100 or status["percentage"] == "100":
                 break
 
     except Exception as e:
