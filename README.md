@@ -92,6 +92,9 @@ The portal is deployed on the server. The containers on the user’s machine int
 On the receiver’s end, the container registers itself on the portal so that it can receive the data which is sent by the sender. The sender has the identification keys (security keys and access keys) of the receiver and it uses these keys when he initiates the transfer.
 
 ### Understanding Network Setup:
+<p align="center">
+  <img src="images/networkImage.png">
+</p>
 
 To realize data transfer, we have rclone installed on the rclone container. Rclone implements a simple HTTP based protocol. The controller container will start the rclone server by running a certain shell script.  The rclone server will bind to the ip address of this rclone container. Once the server starts, we can easily talk to the server by making POST requests. This API will offer us a bunch of useful functionalities such as connecting to the remote endpoint, initiating the transfer. If another team takes over and keeps working on this project, they can make use of the stopping and listing of all the remote, etc. 
 
