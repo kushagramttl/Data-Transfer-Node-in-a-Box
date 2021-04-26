@@ -3,7 +3,9 @@
   "CONTAINER_REGISTER_URL": "http://128.31.25.8:8000/portal/register/",
   "LOGIN_URL": "http://128.31.25.8:8000/portal/signin",
   "WAIT_TIME": 10,
-  "INIT_TRANSFER_URL": "http://128.31.25.8:8000/portal/transfers/ ",
-  "GET_TRANSFER_STATUS_URL": "http://128.31.25.8:8000/portal/transfers/ ",
-  "GET_TRANSFER_LIST_URL": "http://128.31.25.8:8000/portal/transfers/"
+  "INIT_TRANSFER_URL": "http://128.31.25.8:8000/portal/transfers/",
+  "GET_TRANSFER_STATUS_URL": "http://128.31.25.8:8000/portal/transfers/",
+  "GET_TRANSFER_LIST_URL": "http://128.31.25.8:8000/portal/transfers/",
+  "GET_STATUS_TIME": 5,
+  "DELETE_COMMAND_URL": "http://128.31.25.8:8000/portal/commands/"
 }

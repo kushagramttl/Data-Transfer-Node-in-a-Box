@@ -88,6 +88,7 @@ def commands(request, id=None):
         qs = Command.objects.filter(sender=user)
         print(qs)
         data = serialize("json", qs, fields=(
+            "command_id",
             "access_key", "secret_key", "ip_address", "port", "file_name"))
         return HttpResponse(data, content_type="application/json")
     elif request.method == "DELETE":
@@ -104,6 +105,7 @@ def commands(request, id=None):
 def stop_transfer(request, id=None):
     # make transfer with given IDs stop field to true and rerender view transfer page
     pass
+
 
 @login_required(login_url='/portal/autherror/')
 def create_command(request):
@@ -131,7 +133,7 @@ def transfers(request, id=None):
         average_speed = json.loads(
             request.body.decode("utf-8"))['average_speed']
         stopped = json.loads(request.body.decode("utf-8"))['stopped']
-        print('st '+ stopped)
+        print('st ' + stopped)
         if stopped == "true":
             stop = True
         else:

@@ -4,12 +4,11 @@ from portalclient import PortalClient
 from config import ConfigSingleton
 from transfercommand import initiate_transfer
 from multiprocessing import Process, Pool
-from transfer_with_status_back import add_local
+from transfer_with_status_back import add_local, get_status
+
 
 def initiate():
-
     add_local()
-
     portal_client = PortalClient()
 
     ConfigSingleton.getInstance().set_config_values()
@@ -30,21 +29,17 @@ def initiate():
 
         access_key = input("Please enter your access key: ")
         secret_key = input("Please enter your secret key: ")
-        # access_key = "test3"
-        # secret_key = "test3"
+
         portal_client.post_register_container(container_registration, session, access_key, secret_key)
 
         while True:
+            print("Fetching commands...")
             commands = portal_client.get_commands(ConfigSingleton.getInstance().config_dict["FETCH_COMMAND_URL"],
                                                   session)
+            print("Commands received: ", commands)
             if len(commands) > 0:
-                print("In main : ", commands)
-                # for(command in commands):
+                print("Commands received from portal are: ", commands)
 
-                # if command["command"] == "START":
-                # p = Process(target=initiate_transfer)
-                # p.start()
-                # p.join()
                 number_of_processes = len(commands)
 
                 command_objects = [{'session': session, 'command': x} for x in commands]
@@ -55,10 +50,6 @@ def initiate():
 
             time.sleep(wait_time)
 
-            break
-
-
-# main()
 
 if __name__ == '__main__':
     initiate()

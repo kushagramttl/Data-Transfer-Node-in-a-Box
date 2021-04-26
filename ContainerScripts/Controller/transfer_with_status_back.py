@@ -1,6 +1,6 @@
 import requests
 import json
-import threading
+import sys
 
 session = requests.Session()
 
@@ -18,21 +18,16 @@ def add_local():
         "Content-type": "application/json"
     }
     params_json = json.dumps(params)
-    url = "http://rclone:8000/config/create"
+    url = "http://rclone:5572/config/create"
     response = session.post(url, data=params_json, headers=header)
-    print(response)
-    print(response.text)
+
+
+"""
+Method creates a new alias on the Rclone server for transfer.
+"""
 
 
 def make_alias(endpoint, port, alias_name, access_key, secret_key):
-    print('Inside make alias')
-    # map = {
-    #     "access_key_id": access_key,
-    #     "secret_access_key": secret_key,
-    #     "region": "us-east-1",
-    #     "endpoint": endpoint + ":" + port
-    # }
-    # map_json = json.dumps(map)
     params = {
         "name": alias_name,
         "type": "s3",
@@ -40,24 +35,30 @@ def make_alias(endpoint, port, alias_name, access_key, secret_key):
             "access_key_id": access_key,
             "secret_access_key": secret_key,
             "region": "us-east-1",
-            "endpoint": endpoint + ":" + port
+            "endpoint": "http://" + endpoint + ":" + port
         }
     }
 
     header = {
         "Content-type": "application/json"
     }
+
+    print("Creating alias for transfer to the receiver. Parameters for creating alias are: ", params)
+
     params_json = json.dumps(params)
-    url = "http://rclone:8000/config/create"
+    url = "http://rclone:5572/config/create"
     response = session.post(url, data=params_json, headers=header)
-    print(response)
-    print(response.text)
+    print("The response from server to create an alias: ", response.text)
 
 
-# remote_dir here should contain alias to that endpoint and the bucket to put this file to.
-# ie, alias:bucket
-def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket, transfer_id):
-    # hard_code params
+"""
+Method that instructs Rclone server to initiate the transfer
+remote_dir here should contain alias to that endpoint and the bucket to put this file to.
+ie, alias:bucket
+"""
+
+
+def init_transfer(file_to_send, remote_alias, remote_bucket, transfer_id):
     """
     dummy_params_fortest = {
         "srcFs": "disk:/Users/usr/Desktop",
@@ -69,7 +70,7 @@ def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket, transfer
     }
     """
     params = {
-        "srcFs": "disk:./data",
+        "srcFs": "disk:/root/data",
         "srcRemote": file_to_send,
         "dstFs": remote_alias + ":" + remote_bucket,
         "dstRemote": file_to_send,
@@ -81,7 +82,9 @@ def init_transfer(local_dir, file_to_send, remote_alias, remote_bucket, transfer
     }
     json_object = json.dumps(params)
 
-    url = "http://rclone:8000/operations/copyfile"
+    print("parameters for sending file are: ", params)
+
+    url = "http://rclone:5572/operations/copyfile"
     response = session.post(url, data=json_object, headers=header)
     return_obj = {
         "bytes": "0",
@@ -125,7 +128,7 @@ def get_status(transferId):
     response_json = response.json()
 
     # transfer has already completed.
-    if response_json['transfers'] == 0:
+    if 'transferring' not in response_json or len(response_json['transferring']) == 0:
         transferring = {
             "eta": "0",
             "percentage": "100",
@@ -135,10 +138,11 @@ def get_status(transferId):
             "size": "0",
             "speedAvg": "0"
         }
-        transferring_object = json.dumps(transferring)
-        print("transferring", transferring_object)
         return transferring
     else:
         transferring = response_json['transferring'][0]
-        print("transferring", transferring)
+
+        if transferring["eta"] is None:
+            transferring["eta"] = sys.maxsize
+
         return transferring

@@ -1,6 +1,10 @@
 import requests
 import json
 
+"""
+A client class responsible for connecting with portal for commands and login.
+"""
+
 
 class PortalClient:
 
@@ -9,7 +13,7 @@ class PortalClient:
 
         response = session.get(url + "?username=" + userName + "&password=" + userPassword)
         print("Login Response Text : ", response.text)
-        if ("Login Error! Try again!" in response.text):
+        if "Login Error! Try again!" in response.text:
             session.close()
             return None
         return session
@@ -19,7 +23,7 @@ class PortalClient:
             "access_key": access_key,
             "secret_key": secret_key,
             "port": "9000",
-            "ip_address": "localhoast:8000"
+            "ip_address": "controller"
         }
 
         header = {"Content-type": "application/json"}
@@ -32,12 +36,17 @@ class PortalClient:
 
     def get_commands(self, url, session):
         respose = session.get(url)
-        print("Get command response : ", respose)
         if respose != None:
             commands = respose.json()
-            print("Get command JSON data : ", commands)
             return commands
         return {}
 
+    def delete_command(self, url, comamnd_id, session):
+        delete_url = url + str(comamnd_id)
+        response = session.delete(delete_url)
+        print(response.text)
+
+        return response
+
     def __init__(self):
-        print("Client initiated!")
+        print("Client class initiated for portal communication")
